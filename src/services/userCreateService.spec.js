@@ -2,7 +2,7 @@ const UserCreateService = require("./UserCreateService")
 const UserRepositoryInMemory = require("../repositories/UserRepositoryInMemory")
 
 describe("UserCreateService", ()=>{
-    it("user should be create",async ()=>{
+    it("a user should be created",async ()=>{
         const user = {
             name:"user test",
             email:"user@test.com",

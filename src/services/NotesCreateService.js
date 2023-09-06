@@ -1,29 +1,45 @@
+const AppError = require("../utils/AppError")
+
 class NotesCreateService{
-    constructor(userRepository){
-        this.userRepository = userRepository
-        console.log("output userrepo",userRepository)
-        //isso so globaliza a const? (a parte que comeca com this sim)
-        //nao tem importacao? (importacao ocorre pelo userController?)
-        //constructor ta pedindo de referencia o userRepository? (sim)
+    constructor(notesRepository){
+        this.notesRepository = notesRepository
+     
     }
     async execute({title, description, tags, links, user_id}){
 
-        console.log(tags,links)
-    const id = await this.userRepository.create({title, description,user_id})
-    //retorna o resultado do create, puxamos o note_id do lastid
-    const note_id = id.lastID
+        console.log({title, description, tags, links, user_id})
 
-    links.forEach(async(link)=>{
-        console.log(note_id, link)
-        await this.userRepository.linksInsert({links:link,note_id})
-        return
-    })//para cada tag, faca o insert no banco
-  
 
-    tags.forEach(async(tag)=>{
-        await this.userRepository.tagsInsert({name:tag,note_id,user_id})
-        return
-    })//para cada link, faca o insert no banco
+
+    if(!title){
+        throw new AppError("Nenhum titulo foi informado",400)
+    }else{
+
+        const id = await this.notesRepository.create({title, description,user_id})
+
+
+        const note_id = id[0] // estamos recebendo o id em array?
+
+        
+        if(links){
+            links.forEach(async(link)=>{
+                await this.notesRepository.linksInsert({links:link,note_id})
+                return
+            })
+        }
+        if(tags){
+            tags.forEach(async(tag)=>{
+                await this.notesRepository.tagsInsert({name:tag,note_id,user_id})
+                return
+            })
+        }   
+    
+
+    
+
+        return note_id
     }
+    }
+
 }
 module.exports=NotesCreateService

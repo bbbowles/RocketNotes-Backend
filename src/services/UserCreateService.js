@@ -17,7 +17,9 @@ class UserCreateService{
 
         const checkUserExists = await this.userRepository.findByEmail(email)
 
-        if (checkUserExists) {
+        console.log(checkUserExists)
+
+        if (checkUserExists[0]) {
             throw new AppError('Email em uso')
         }
 

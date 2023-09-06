@@ -37,7 +37,7 @@ class UsersController {
 
     const userUpdateService = new UserUpdateService(userRepository)
 
-    await userUpdateService.execute({user})
+    await userUpdateService.execute(user)
 
     return response.json()
   }

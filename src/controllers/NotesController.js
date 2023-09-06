@@ -44,7 +44,7 @@ class NotesController {
 
     const notesDeleteService = new NotesDeleteService(notesRepository)
     
-    const resultado = await notesDeleteService.execute({id:request.params.id})
+    await notesDeleteService.execute({id:request.params.id})
 
 
     return response.json({ message: 'Note delete completed' })
@@ -59,7 +59,6 @@ class NotesController {
     const notesIndexService = new NotesIndexService(notesRepository)
     
     const notesWithTags = await notesIndexService.execute({title, tags, user_id})
-
 
 
     return response.json(notesWithTags)

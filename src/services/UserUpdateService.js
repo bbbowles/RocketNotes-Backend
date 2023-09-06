@@ -1,63 +1,58 @@
-const { database } = require("sqlite");
 const sqliteConnection = require("../database/sqlite")
 const {compare, hash} = require("bcryptjs");
 const AppError = require("../utils/AppError");
-const UserRepository = require("../repositories/UserRepository")
 
 class UserUpdateService{
     constructor(userRepository){
         this.userRepository = userRepository
-        //globaliza a instancia do userRepository
-    }
-    async fillWhereNull(user, dbUser){
-        console.log("cheguei no fill")
-        Object.keys(user).forEach(function(value) {
-            if(user[value] === null) {
-                let tmp = [value]
-                user[value] = dbUser[tmp];
-              console.log(user)
-            }return user 
-        })
     }
 
-    async execute({user}){ //precisamos receber entre chaves, por que?
+    async execute(data){ 
+        const {id,email,name,password,old_password} = data
+        const user = await this.userRepository.findById(id)
+
         console.log(user)
-        const dbUser = await this.userRepository.findById(user.id)
-        console.log("dbuser", dbUser)
-        if(user.password){
+        
+        if (!user) {
+            throw new AppError('usuario não encontrado')
+          }
 
-            const res = await compare(user.old_password, dbUser.password)
-            console.log(res)
+          const userWithUpdatedEmail = await this.userRepository.findByEmail(email)
 
-                if(res){
-                    try{
+      
+          if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user.id) {
+            throw new AppError('este email já está em uso.')
+          }
+          user[0].name = name || user[0].name
+          user[0].email = email || user[0].email
+      
+          if (password && !old_password) {
+            throw new AppError('Você precisa informar a senha antiga!')
+          }
+      
+          if (password && old_password) {
 
-                        const hashedPassword = await hash(user.password,8)
+            if(password == old_password){
 
-                        user.password = hashedPassword
-
-                        const userNotNull = fillWhereNull(user, dbUser)
-
-                        console.log(userNotNull)
-
-                        
-                        const results = await this.userRepository.update(userNotNull)
-
-                        console.log(results)
-                        
-                        return
-                            
-                    }catch{
-                        throw new AppError("erro ao inserir",500) //por que o return n funcionou
-                    }
-                }else{
-                    throw new AppError("senhas nao batem",500)
-                }
-                
-            }else{
-
+              throw new AppError("as senha antiga e a senha nova nao podem ser iguais")
             }
+            console.log(user[0])
 
+            console.log(user[0].password)
+            const checkOldPassword = await compare(old_password, user[0].password)
+
+           
+            if (!checkOldPassword) {
+              throw new AppError(
+                'Senha antiga não confere, insira novamente por gentileza!'
+              )
+            }
+      
+            user[0].password = await hash(password, 8)
+          }
+      
+          await this.userRepository.update(user)
+          return
     }
 }
 module.exports = UserUpdateService

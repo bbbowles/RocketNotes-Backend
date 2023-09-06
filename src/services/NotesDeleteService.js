@@ -8,11 +8,15 @@ class NotesDeleteService{
         console.log(id)
 
         const {note} = await this.notesRepository.searchNotesComplete(id)
+
+        console.log(note)
         
 
-        if(note){
+        if(note.length>0){
             try{
-                await this.notesRepository.delete(id)
+                const resultado = await this.notesRepository.delete(id)
+
+                return resultado
             }catch{
                 throw new AppError("erro ao deletar",500)
             }
@@ -21,7 +25,7 @@ class NotesDeleteService{
             throw new AppError("nota inexistente",404)
         }
 
-        return
+
     }
 }
 module.exports = NotesDeleteService
