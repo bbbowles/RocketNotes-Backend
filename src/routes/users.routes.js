@@ -19,6 +19,8 @@ const usersController = new UsersController()
 usersRoutes.post("/", usersController.create)
 usersRoutes.put("/", ensureAuthenticated, usersController.update)
 usersRoutes.patch("/avatar", ensureAuthenticated,upload.single("avatar"), userAvatarController.update)
+usersRoutes.get("/index",ensureAuthenticated,usersController.index)
+usersRoutes.get("/:id",ensureAuthenticated,usersController.show)
 //depois de colocar ensureAuthenticated nao precisa mais colocar o :id
 
 /*exports*/

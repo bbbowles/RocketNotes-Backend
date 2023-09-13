@@ -4,6 +4,9 @@ const sqliteConnection = require('../database/sqlite')
 const UserRepository = require("../repositories/UserRepository")
 const UserCreateService = require("../services/UserCreateService")
 const UserUpdateService = require("../services/UserUpdateService")
+const UserShowService = require("../services/UserShowService")
+const UserIndexService = require("../services/UserIndexService")
+
 
 class UsersController {
 
@@ -40,6 +43,28 @@ class UsersController {
     await userUpdateService.execute(user)
 
     return response.json()
+  }
+  async show(request,response){
+    const id = request.params.id
+    console.log(id)
+
+    const userRepository = new UserRepository()
+
+    const userShowService = new UserShowService(userRepository)
+
+    const resposta = await userShowService.execute(id)
+
+    return response.json(resposta)
+  }
+  async index(request,response){
+    const userRepository = new UserRepository()
+
+    const userIndexService = new UserIndexService(userRepository)
+
+    const resposta = await userIndexService.execute()
+
+    return response.json(resposta)
+
   }
 }
 

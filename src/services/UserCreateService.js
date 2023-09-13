@@ -1,32 +1,30 @@
-const { hash} = require('bcryptjs')
+const { hash } = require('bcryptjs')
 const AppError = require('../utils/AppError')
 
-class UserCreateService{
+class UserCreateService {
 
-    constructor(userRepository){
+    constructor(userRepository) {
         this.userRepository = userRepository
-        console.log("output userrepo",userRepository)
-        //isso so globaliza a const? (a parte que comeca com this sim)
-        //nao tem importacao? (importacao ocorre pelo userController?)
-        //constructor ta pedindo de referencia o userRepository? (sim)
+        console.log("output userrepo", userRepository)
+
     }
 
 
-    async execute({name, email, password}){
+    async execute({ name, email, password }) {
 
 
         const checkUserExists = await this.userRepository.findByEmail(email)
 
-        console.log(checkUserExists)
+        console.log("checkuserexist", checkUserExists)
 
         if (checkUserExists[0]) {
             throw new AppError('Email em uso')
         }
 
         const hashedPassword = await hash(password, 8)
- 
-        const userCreated = await this.userRepository.create({name, email, password:hashedPassword})
-        
+
+        const userCreated = await this.userRepository.create({ name, email, password: hashedPassword })
+
         console.log(userCreated)
 
         return userCreated

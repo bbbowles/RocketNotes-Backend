@@ -1,4 +1,3 @@
-const knex = require('../database/knex')
 const NotesRepository = require("../repositories/NotesRepository")
 const NotesCreateService = require("../services/NotesCreateService")
 const NotesShowService = require("../services/NotesShowService")
@@ -30,12 +29,18 @@ class NotesController {
 
     const {note,tags,links} = resultado
 
-   
-    return response.json({
+    console.log(note,"notedocontroller")
+
+    const resultado2 = response.json({ //por que response.json
       ...note,
       tags,
       links
     })
+
+    
+
+   
+    return resultado2
   }
 
   async delete(request, response) {

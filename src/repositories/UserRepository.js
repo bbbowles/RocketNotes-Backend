@@ -25,8 +25,7 @@ class UserRepository{
       return {id:userId}
   }
   async findById(id){
-      // const database = await sqliteConnection()
-      // const dbUser = await database.get("SELECT * FROM users WHERE id = (?)",[id])
+      console.log(id)
 
       const dbUser = await knex("users").select("*").where("id",id)
 
@@ -54,6 +53,14 @@ class UserRepository{
       console.log(resultado)
 
       return resultado
+  }
+  async index(){
+
+      const users = await knex("users").select("name","id")
+
+      console.log(users)
+
+      return users
   }
 
   

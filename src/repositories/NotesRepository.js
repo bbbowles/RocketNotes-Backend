@@ -25,7 +25,7 @@ class NotesRepository{
 
         return
     }
-    async searchNotesComplete(note_id){
+    async searchNotesComplete({note_id}){
         // const database = await sqliteConnection()
         // const note = await database.get(
         //     "SELECT * FROM notes WHERE id=?"
@@ -36,6 +36,8 @@ class NotesRepository{
         // const links = await database.get(
         //     "SELECT * FROM links WHERE note_id=? ORDER BY created_at"
         // ,[note_id])
+
+        console.log("notes id",note_id)
 
         const note = await knex("notes").select("*").where("id",note_id)
 
@@ -48,17 +50,14 @@ class NotesRepository{
         .select("*")
         .where("note_id",note_id)
         .orderBy("created_at")
+
+        console.log({note,tags,links})
         
 
 
         return({note,tags,links}) //FUNCIONANDO!
     }
     async delete(id){
-        // const database = await sqliteConnection()
-        //  await database.run(
-        //     "DELETE FROM notes WHERE id=?"
-        //  ,[id])
-
         await knex("notes").delete("*").where("id",id)
 
          return

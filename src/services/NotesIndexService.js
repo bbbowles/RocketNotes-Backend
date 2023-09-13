@@ -34,10 +34,6 @@ class NotesIndexService{
     
         const userTags = await this.notesRepository.userTags({user_id})
 
-        console.log("===============")
-        console.log(userTags)
-        console.log("===============")
-
         const notesWithTags = notes.map(note => {
           const noteTags = Object.values(userTags).filter(tag => tag.note_id === note.id)
           //colocamos o Object.values ja que o filter so funciona para arrays e o usertags e obj

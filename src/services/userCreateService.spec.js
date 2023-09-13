@@ -1,10 +1,28 @@
 const UserCreateService = require("./UserCreateService")
 const UserRepositoryInMemory = require("../repositories/UserRepositoryInMemory")
 
+
 describe("UserCreateService", ()=>{
     it("a user should be created",async ()=>{
-        const user = {
+        const user = [{
             name:"user test",
+            email:"user@test.com",
+            password:"123"
+        }]
+    
+        const userRepositoryInMemory = new UserRepositoryInMemory()
+        const userCreateService = new UserCreateService(userRepositoryInMemory)
+        const userCreated = await userCreateService.execute(user)
+    
+        console.log(userCreated)
+    
+        expect(userCreated).toHaveProperty("id")
+    
+    
+        
+    })
+    it("a user should be created",async ()=>{
+        const user = {
             email:"user@test.com",
             password:"123"
         }
