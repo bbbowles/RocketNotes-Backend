@@ -39,7 +39,7 @@ describe("cars create service tests",()=>{
 
         const carsRepository = new CarsRepositoryInMemory()
         const carsCreateService = new CarsCreateService(carsRepository)
-        const resultado = await carsCreateService.execute({name,brand,year,user_id})
+        await carsCreateService.execute({name,brand,year,user_id})
     }catch(error){
         expect(error).toBeInstanceOf(AppError)
     }

@@ -21,6 +21,34 @@ class UserRepositoryInMemory{
 
         return resultado
     }
+    async index(){
+        const users=[
+            {
+                "name": "test"
+            },
+            {
+                "name": "test2"
+            }
+        ]
+
+        return users
+    }
+    async findById(id){
+
+        const resultado=[
+            {
+                "id": 1,
+                "name": "admin",
+                "email": "admin",
+                "password": "$2a$08$Ho.TfIKtObizTl0PgPnFf.UYRSHOCtrzHYg9WGtcQXKik3tXK6rZa",
+                "avatar": null,
+                "created_at": "2023-09-11 19:18:19",
+                "updated_at": "2023-09-11 19:18:19"
+            }
+        ]
+
+        return resultado
+    }
 
 }
 

@@ -26,26 +26,26 @@ class NotesRepository{
         console.log(notes_id)
 
         if(notes_id){
-            const note = {
+            const note = [{
                 "id": 1,
                 "title": "titulo teste",
                 "description": "note teste",
                 "user_id": 1,
                 "created_at": "2023-09-04 16:21:37",
                 "updated_at": "2023-09-04 16:21:37"
-            }
-            const tags = {
+            }]
+            const tags = [{
                 "id": 1,
                 "name": "nome teste",
                 "note_id": 1,
                 "user_id": 1
-            }
-            const links = {
+            }]
+            const links = [{
                 "id": 1,
                 "url": "url teste",
                 "note_id": 1,
                 "created_at": "2023-09-04 16:21:37"
-            }
+            }]
             return({note,tags,links})
         }else{
             return

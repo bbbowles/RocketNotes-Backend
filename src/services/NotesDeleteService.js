@@ -7,9 +7,9 @@ class NotesDeleteService{
     async execute({id}){
         console.log(id)
 
-        const {note} = await this.notesRepository.searchNotesComplete(id)
+        const {note,tags,links} = await this.notesRepository.searchNotesComplete({notes_id:id})
 
-        console.log(note)
+        console.log("recebemos note",note)
         
 
         if(note.length>0){

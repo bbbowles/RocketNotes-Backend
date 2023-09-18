@@ -12,22 +12,32 @@ class UserCreateService {
 
     async execute({ name, email, password }) {
 
+        console.log({ name, email, password })
 
-        const checkUserExists = await this.userRepository.findByEmail(email)
+        if ( name || email || password) {
 
-        console.log("checkuserexist", checkUserExists)
+            const checkUserExists = await this.userRepository.findByEmail(email)
 
-        if (checkUserExists[0]) {
-            throw new AppError('Email em uso')
+            console.log("checkuserexist", checkUserExists)
+
+            if (checkUserExists[0]) {
+                throw new AppError('Email em uso')
+            }
+
+
+            const hashedPassword = await hash(password, 8)
+            const userCreated = await this.userRepository.create({ name, email, password: hashedPassword })
+
+
+            console.log(userCreated)
+
+            return userCreated
+
+        } else {
+            throw new AppError("nome, email e/ou senha nao informadas")
+
         }
 
-        const hashedPassword = await hash(password, 8)
-
-        const userCreated = await this.userRepository.create({ name, email, password: hashedPassword })
-
-        console.log(userCreated)
-
-        return userCreated
     }
 }
 
