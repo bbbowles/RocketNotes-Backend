@@ -3,7 +3,7 @@ const AddrCreateService = require ("../services/AddrCreateService")
 const AddrIndexService = require ("../services/AddrIndexService")
 const AddrShowService = require("../services/AddrShowService")
 const AddrDeleteService = require("../services/AddrDeleteService")
-
+const AddrUpdateService = require("../services/AddrUpdateService")
 
 
 class AddrController{
@@ -55,6 +55,24 @@ class AddrController{
         const addrDeleteService = new AddrDeleteService(addrRepository)
 
         const resposta = await addrDeleteService.execute(id)
+
+        return response.json(resposta)
+
+    }
+    
+    async update(request,response){
+
+        const dados = request.body
+
+        const {id} = request.params
+
+        dados.id = id
+
+        const addrRepository = new AddrRepository()
+
+        const addrUpdateService = new AddrUpdateService(addrRepository)
+
+        const resposta = await addrUpdateService.execute(dados)
 
         return response.json(resposta)
 

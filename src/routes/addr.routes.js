@@ -11,6 +11,7 @@ addrRoutes.use(ensureAuthenticated)
 addrRoutes.get("/", addrController.index)
 addrRoutes.get("/:id", addrController.show)
 addrRoutes.post("/",addrController.create)
+addrRoutes.post("/:id?",addrController.update)
 addrRoutes.delete("/:id?",addrController.delete)
 
 module.exports = addrRoutes
