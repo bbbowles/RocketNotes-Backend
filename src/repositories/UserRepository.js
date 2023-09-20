@@ -1,68 +1,50 @@
 const sqliteConnection = require("../database/sqlite")
 const knex = require('../database/knex')
 
-class UserRepository{
-  async findByEmail(email){
-      console.log("recebemos",email)
-      // const database = await sqliteConnection()
-      // const user = await database.get("SELECT * FROM users WHERE email = (?)",[email])
+class UserRepository {
+    async findByEmail(email) {
+        console.log("recebemos", email)
 
-      const user = await knex("users").select("*").where("email",email)
-
-      
-
-      return user
-  }
-  async create({name, email, password}){
-      // const database = await sqliteConnection()
-      // const userId = await database.run(
-      //     'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-      //     [name, email, password]
-      //   )    
-
-      const userId = await knex("users").insert({name, email, password})
-
-      return {id:userId}
-  }
-  async findById(id){
-      console.log(id)
-
-      const dbUser = await knex("users").select("*").where("id",id)
-
-      return dbUser
-  }
-  async update(user){
-      console.log("user",user)
+        const user = await knex("users").select("*").where("email", email).first()
 
 
-      const {name, email, password, id} = user[0]
 
-      // const resultado = await database.run(
-      //   `
-      //    UPDATE users SET
-      //    name = ?,
-      //    email = ?,
-      //    password = ?,
-      //    updated_at = DATETIME('now')
-      //    WHERE id = ?`,
-      //   [user.name, user.email, user.password, user.id]
-      // )
+        return user
+    }
+    async create({ name, email, password }) {
 
-        const resultado = await knex("users").update({name,email,password}).where("id",id)
 
-      console.log(resultado)
+        const userId = await knex("users").insert({ name, email, password })
 
-      return resultado
-  }
-  async index(){
+        return { id: userId }
+    }
+    async findById(id) {
+        console.log(id)
 
-      const users = await knex("users").select("name","id")
+        const dbUser = await knex("users").select("*").where("id", id).first()
 
-      console.log(users)
+        return dbUser
+    }
+    async update(user) {
+        console.log("user", user)
 
-      return users
-  }
+        const { name, email, password, id } = user[0]
 
-  
+        const resultado = await knex("users").update({ name, email, password }).where("id", id)
+
+        console.log(resultado)
+
+        return resultado
+    }
+    async index() {
+
+        const users = await knex("users").select("name", "id")
+
+        console.log(users)
+
+        return users
+    }
+
+
 }
-module.exports= UserRepository
+module.exports = UserRepository

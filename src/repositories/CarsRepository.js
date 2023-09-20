@@ -24,7 +24,7 @@ class CarsRepository {
         return
     }
     async show(id) {
-        const dbCar = await knex("cars").select("*").where("id", id)
+        const dbCar = await knex("cars").select("*").where("id", id).first()
 
         return dbCar
     }
