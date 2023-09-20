@@ -1,10 +1,10 @@
-class AddrRepositoryInMemory{
-    async create(dados){
+class AddrRepositoryInMemory {
+    async create(dados) {
 
         return
     }
-    async index(){
-        const addr= [
+    async index() {
+        const addr = [
             {
                 "id": 1,
                 "cep": 123456789,
@@ -31,7 +31,7 @@ class AddrRepositoryInMemory{
 
         return addr
     }
-    async show(id){
+    async show(id) {
         const addr = {
             "id": 1,
             "cep": 123456789,
@@ -46,9 +46,15 @@ class AddrRepositoryInMemory{
         return addr
     }
 
-    async delete(id){
+    async delete(id) {
         return "Endereço deletado com sucesso"
     }
+
+    async update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id, id }) {
+        return
+
+    }
+
 }
 
 module.exports = AddrRepositoryInMemory
