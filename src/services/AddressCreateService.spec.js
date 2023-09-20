@@ -1,6 +1,5 @@
-
-const AddrRepositoryInMemory = require("../repositories/AddrRepositoryInMemory")
-const AddrCreateService = require ("./AddressCreateService")
+const AddressRepositoryInMemory = require("../repositories/AddressRepositoryInMemory")
+const AddressCreateService = require ("./AddressCreateService")
 const AppError = require("../utils/AppError")
 
 describe("tests AddrCreateService",()=>{
@@ -17,11 +16,11 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddrRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const addressCreateService = new AddrCreateService(addressRepository)
 
-        const resposta = await addrCreateService.execute(dados)
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
 
@@ -39,11 +38,11 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddrRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const addressCreateService = new AddrCreateService(addressRepository)
 
-        const resposta = await addrCreateService.execute(dados)
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
 
@@ -61,11 +60,11 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddrRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const addressCreateService = new AddrCreateService(addressRepository)
 
-        const resposta = await addrCreateService.execute(dados)
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
         }catch(error){
