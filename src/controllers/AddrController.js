@@ -1,9 +1,9 @@
 const AddrRepository = require ("../repositories/AddrRepository")
-const AddrCreateService = require ("../services/AddrCreateService")
-const AddrIndexService = require ("../services/AddrIndexService")
-const AddrShowService = require("../services/AddrShowService")
-const AddrDeleteService = require("../services/AddrDeleteService")
-const AddrUpdateService = require("../services/AddrUpdateService")
+const AddrCreateService = require ("../services/AddressCreateService")
+const AddrIndexService = require ("../services/AddressIndexService")
+const AddrShowService = require("../services/AddressShowService")
+const AddrDeleteService = require("../services/AddressDeleteService")
+const AddrUpdateService = require("../services/AddressUpdateService")
 
 
 class AddrController{
