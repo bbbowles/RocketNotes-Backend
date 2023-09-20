@@ -1,24 +1,39 @@
 const AppError = require("../utils/AppError")
 
-class AddrUpdateService {
-    constructor(addrRepository) {
-        this.addrRepository = addrRepository
+class AddressUpdateService {
+    constructor(addressRepository) {
+        this.addressRepository = addressRepository
     }
     async execute(dados) {
 
         const { cep, nome, cidade, bairro, estado, numero, complemento, user_id, id } = dados
 
-        try {
-            await this.addrRepository.update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id, id })
+        if (id) {
 
-            return "Endereço atualizado com sucesso!"
+            const user = await this.addressRepository.showUser({ id: user_id })
 
-        }catch{
-            throw new AppError("Um erro interno ocorreu durante o update de dados")
+
+            if (cep.length == 8 && !isNaN(cep) && user) {
+
+                try {
+                    await this.addressRepository.update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id, id })
+
+                    return "Endereço atualizado com sucesso!"
+
+                } catch {
+                    throw new AppError("Um erro interno ocorreu durante o update de dados")
+                }
+            } else {
+                throw new AppError("O cep digitado não é valido")
+            }
+        } else {
+            throw new AppError("Id invalido!")
         }
+
+
 
 
 
     }
 }
-module.exports = AddrUpdateService
+module.exports = AddressUpdateService

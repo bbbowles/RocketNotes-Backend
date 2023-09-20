@@ -6,7 +6,7 @@ const tagsRouter = require('./tags.routes')
 const carsRouter = require('./cars.routes')
 const carsAdminRouter = require("./carsadmin.routes")
 const sessionsRouter = require('./sessions.routes')
-const addrRouter = require("./addr.routes")
+const addressRouter = require("./address.routes")
 
 
 const routes = Router()
@@ -17,7 +17,7 @@ routes.use('/tags', tagsRouter)
 routes.use('/sessions', sessionsRouter)
 routes.use('/cars', carsRouter)
 routes.use('/carsadmin', carsAdminRouter)
-routes.use('/addr', addrRouter)
+routes.use('/addr', addressRouter)
 
 
 module.exports = routes

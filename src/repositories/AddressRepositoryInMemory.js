@@ -1,4 +1,4 @@
-class AddrRepositoryInMemory {
+class AddressRepositoryInMemory {
     async create(dados) {
 
         return
@@ -57,4 +57,4 @@ class AddrRepositoryInMemory {
 
 }
 
-module.exports = AddrRepositoryInMemory
+module.exports = AddressRepositoryInMemory

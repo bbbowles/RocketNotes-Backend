@@ -1,14 +1,14 @@
 const AppError = require("../utils/AppError")
 
-class AddrShowService {
-    constructor(addrRepository) {
-        this.addrRepository = addrRepository
+class AddressShowService {
+    constructor(addressRepository) {
+        this.addressRepository = addressRepository
     }
 
     async execute(id) {
         let addr
         try {
-            addr = await this.addrRepository.show(id)
+            addr = await this.addressRepository.show(id)
 
         }catch {
             throw new AppError("Um erro interno aconteceu")
@@ -23,4 +23,4 @@ class AddrShowService {
         }
     }
 }
-module.exports = AddrShowService
+module.exports = AddressShowService

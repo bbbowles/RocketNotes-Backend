@@ -1,4 +1,4 @@
-const AddrRepositoryInMemory = require("../repositories/AddrRepositoryInMemory")
+const AddrRepositoryInMemory = require("../repositories/AddressRepositoryInMemory")
 const AddrIndexService = require ("./AddressIndexService")
 
 

@@ -1,4 +1,4 @@
-const AddrRepositoryInMemory = require("../repositories/AddrRepositoryInMemory")
+const AddrRepositoryInMemory = require("../repositories/AddressRepositoryInMemory")
 const AddrDeleteService = require("./AddressDeleteService")
 const AppError = require("../utils/AppError")
 

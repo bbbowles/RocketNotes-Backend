@@ -1,19 +1,19 @@
 const AppError = require("../utils/AppError")
 
-class AddrDeleteService{
-    constructor(addrRepository){
-        this.addrRepository = addrRepository
+class AddressDeleteService{
+    constructor(addressRepository){
+        this.addressRepository = addressRepository
     }
     async execute(id){
         if(id){
-            const addr = await this.addrRepository.show(id)
+            const addr = await this.addressRepository.show(id)
 
             if(addr==undefined){
                 throw new AppError("Este endereco não existe")
             }else{
                 try{
 
-                    await this.addrRepository.delete(id)
+                    await this.addressRepository.delete(id)
                     
     
                     return "Endereço deletado com sucesso"
@@ -29,4 +29,4 @@ class AddrDeleteService{
         }
  
 }
-module.exports = AddrDeleteService
+module.exports = AddressDeleteService

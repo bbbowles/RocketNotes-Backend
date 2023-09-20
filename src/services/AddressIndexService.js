@@ -1,13 +1,13 @@
 const AppError = require("../utils/AppError")
 
-class AddrIndexService {
-    constructor(addrRepository) {
-        this.addrRepository = addrRepository
+class AddressIndexService {
+    constructor(addressRepository) {
+        this.addressRepository = addressRepository
     }
 
     async execute() {
         try {
-            const addr = this.addrRepository.index()
+            const addr = this.addressRepository.index()
 
             return addr
         }catch{
@@ -16,4 +16,4 @@ class AddrIndexService {
 
     }
 }
-module.exports = AddrIndexService
+module.exports = AddressIndexService

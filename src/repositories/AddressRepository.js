@@ -1,6 +1,6 @@
 const knex = require('../database/knex')
 
-class AddrRepository {
+class AddressRepository {
     async create({ cep, nome, cidade, bairro, estado, numero, complemento, user_id }) {
         await knex("enderecos").insert({ cep, nome, cidade, bairro, estado, numero, complemento, user_id })
 
@@ -27,7 +27,16 @@ class AddrRepository {
         return
 
     }
+    async showUser({id}) {
+        console.log(id)
+
+        const dbUser = await knex("users").select("*").where("id", id).first()
+
+        console.log(dbUser)
+
+        return dbUser
+    }
 
 }
 
-module.exports = AddrRepository
+module.exports = AddressRepository
