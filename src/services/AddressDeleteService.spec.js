@@ -1,5 +1,5 @@
-const AddrRepositoryInMemory = require("../repositories/AddressRepositoryInMemory")
-const AddrDeleteService = require("./AddressDeleteService")
+const AddressRepositoryInMemory = require("../repositories/AddressRepositoryInMemory")
+const AddressDeleteService = require("./AddressDeleteService")
 const AppError = require("../utils/AppError")
 
 
@@ -8,11 +8,11 @@ describe("tests AddrDeleteService", () => {
 
         const id = 1
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrDeleteService = new AddrDeleteService(addrRepository)
+        const addressDeleteService = new AddressDeleteService(addressRepository)
 
-        const resposta = await addrDeleteService.execute(id)
+        const resposta = await addressDeleteService.execute(id)
 
         expect(resposta).toMatch("Endereço deletado com sucesso")
     })
@@ -21,11 +21,11 @@ describe("tests AddrDeleteService", () => {
         try {
             const id = undefined
 
-            const addrRepository = new AddrRepositoryInMemory()
+            const addressRepository = new AddressRepositoryInMemory()
 
-            const addrDeleteService = new AddrDeleteService(addrRepository)
+            const addressDeleteService = new AddressDeleteService(addressRepository)
 
-            const resposta = await addrDeleteService.execute(id)
+            const resposta = await addressDeleteService.execute(id)
 
             expect(resposta).toMatch("Endereço deletado com sucesso")
         } catch (error) {
