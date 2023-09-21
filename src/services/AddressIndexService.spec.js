@@ -1,15 +1,15 @@
-const AddrRepositoryInMemory = require("../repositories/AddressRepositoryInMemory")
-const AddrIndexService = require ("./AddressIndexService")
+const AddressRepositoryInMemory = require("../repositories/AddressRepositoryInMemory")
+const AddressIndexService = require ("./AddressIndexService")
 
 
 describe("tests AddrIndexService", () => {
     it("should return an array of (2) objects", async () => {
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrIndexService = new AddrIndexService(addrRepository)
+        const addressIndexService = new AddressIndexService(addressRepository)
 
-        const resposta = await addrIndexService.execute()
+        const resposta = await addressIndexService.execute()
 
         expect(resposta[0]).toHaveProperty("id")
         expect(resposta[1]).toHaveProperty("id")

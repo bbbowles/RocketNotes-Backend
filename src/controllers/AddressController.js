@@ -1,4 +1,7 @@
 const AddressRepository = require ("../repositories/AddressRepository")
+const UserRepository = require ("../repositories/UserRepository")
+
+
 const AddressCreateService = require ("../services/AddressCreateService")
 const AddressIndexService = require ("../services/AddressIndexService")
 const AddressShowService = require("../services/AddressShowService")
@@ -14,13 +17,15 @@ class AddressController{
 
         const addressRepository = new AddressRepository()
 
-        const addressCreateService = new AddressCreateService(addressRepository)
+        const userRepository = new UserRepository()
+
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
 
         const resposta = await addressCreateService.execute(dados)
 
         return response.json(resposta)
 
-        
+
     }
 
     async index(request,response){
@@ -47,7 +52,7 @@ class AddressController{
 
         return response.json(resposta)
     }
-    
+
     async delete(request,response){
 
         const {id} = request.params
@@ -61,7 +66,7 @@ class AddressController{
         return response.json(resposta)
 
     }
-    
+
     async update(request,response){
 
         const dados = request.body
@@ -72,7 +77,9 @@ class AddressController{
 
         const addressRepository = new AddressRepository()
 
-        const addressUpdateService = new AddressUpdateService(addressRepository)
+        const userRepository = new UserRepository()
+
+        const addressUpdateService = new AddressUpdateService(addressRepository,userRepository)
 
         const resposta = await addressUpdateService.execute(dados)
 

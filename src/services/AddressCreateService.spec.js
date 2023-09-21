@@ -1,12 +1,13 @@
 const AddressRepositoryInMemory = require("../repositories/AddressRepositoryInMemory")
 const AddressCreateService = require ("./AddressCreateService")
 const AppError = require("../utils/AppError")
+const UserRepository = require("../repositories/UserRepositoryInMemory")
 
 describe("tests AddrCreateService",()=>{
     it("endereco should be created",async()=>{
 
         const dados = {
-            "cep":"123456123",
+            "cep":"12345612",
             "nome":"dom joao segundo junior terceiro",
             "cidade":"sorocaba do sul",
             "bairro":"camisas",
@@ -16,9 +17,11 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addressRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addressCreateService = new AddrCreateService(addressRepository)
+        const userRepository = new UserRepository()
+
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
 
         const resposta = await addressCreateService.execute(dados)
 
@@ -29,7 +32,7 @@ describe("tests AddrCreateService",()=>{
     it("endereco should be created, even without complemento",async()=>{
 
         const dados = {
-            "cep":"123456123",
+            "cep":"12345612",
             "nome":"dom joao segundo junior terceiro",
             "cidade":"sorocaba do sul",
             "bairro":"camisas",
@@ -38,9 +41,12 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addressRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addressCreateService = new AddrCreateService(addressRepository)
+        const userRepository = new UserRepository()
+
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
 
         const resposta = await addressCreateService.execute(dados)
 
@@ -60,9 +66,11 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addressRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addressCreateService = new AddrCreateService(addressRepository)
+        const userRepository = new UserRepository()
+
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
 
         const resposta = await addressCreateService.execute(dados)
 
@@ -76,7 +84,7 @@ describe("tests AddrCreateService",()=>{
     it("endereco should not be created",async()=>{
 
         try{const dados = {
-            "cep":"123456123",
+            "cep":"12345612",
             "cidade":"sorocaba do sul",
             "bairro":"camisas",
             "estado":"maracuja",
@@ -85,11 +93,14 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const userRepository = new UserRepository()
 
-        const resposta = await addrCreateService.execute(dados)
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
+
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
         }catch(error){
@@ -101,7 +112,7 @@ describe("tests AddrCreateService",()=>{
     it("endereco should not be created",async()=>{
 
         try{const dados = {
-            "cep":"123456123",
+            "cep":"12345612",
             "nome":"dom joao segundo junior terceiro",
             "bairro":"camisas",
             "estado":"maracuja",
@@ -110,11 +121,14 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const userRepository = new UserRepository()
 
-        const resposta = await addrCreateService.execute(dados)
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
+
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
         }catch(error){
@@ -126,7 +140,7 @@ describe("tests AddrCreateService",()=>{
     it("endereco should not be created",async()=>{
 
         try{const dados = {
-            "cep":"123456123",
+            "cep":"12345612",
             "nome":"dom joao segundo junior terceiro",
             "cidade":"sorocaba do sul",
             "estado":"maracuja",
@@ -135,11 +149,14 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const userRepository = new UserRepository()
 
-        const resposta = await addrCreateService.execute(dados)
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
+
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
         }catch(error){
@@ -151,7 +168,7 @@ describe("tests AddrCreateService",()=>{
     it("endereco should not be created",async()=>{
 
         try{const dados = {
-            "cep":"123456123",
+            "cep":"12345612",
             "nome":"dom joao segundo junior terceiro",
             "cidade":"sorocaba do sul",
             "bairro":"camisas",
@@ -160,11 +177,14 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const userRepository = new UserRepository()
 
-        const resposta = await addrCreateService.execute(dados)
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
+
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
         }catch(error){
@@ -176,7 +196,7 @@ describe("tests AddrCreateService",()=>{
     it("endereco should not be created",async()=>{
 
         try{const dados = {
-            "cep":"123456123",
+            "cep":"12345612",
             "nome":"dom joao segundo junior terceiro",
             "cidade":"sorocaba do sul",
             "bairro":"camisas",
@@ -185,11 +205,14 @@ describe("tests AddrCreateService",()=>{
             "user_id":"2"
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const userRepository = new UserRepository()
 
-        const resposta = await addrCreateService.execute(dados)
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
+
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
         }catch(error){
@@ -201,7 +224,7 @@ describe("tests AddrCreateService",()=>{
     it("endereco should not be created",async()=>{
 
         try{const dados = {
-            "cep":"123456123",
+            "cep":"12345612",
             "nome":"dom joao segundo junior terceiro",
             "cidade":"sorocaba do sul",
             "bairro":"camisas",
@@ -210,11 +233,13 @@ describe("tests AddrCreateService",()=>{
             "complemento":"perto da padaria",
         }
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrCreateService = new AddrCreateService(addrRepository)
+        const userRepository = new UserRepository()
 
-        const resposta = await addrCreateService.execute(dados)
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
+        const resposta = await addressCreateService.execute(dados)
 
         console.log(resposta)
         }catch(error){
@@ -222,6 +247,36 @@ describe("tests AddrCreateService",()=>{
 
         }
 
+
     })
+    it("endereco should not be created",async()=>{
+
+        try{const dados = {
+            "cep":"1234561a",
+            "nome":"dom joao segundo junior terceiro",
+            "cidade":"sorocaba do sul",
+            "bairro":"camisas",
+            "estado":"maracuja",
+            "numero":"1234",
+            "complemento":"perto da padaria",
+        }
+
+        const addressRepository = new AddressRepositoryInMemory()
+
+        const userRepository = new UserRepository()
+
+        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
+        const resposta = await addressCreateService.execute(dados)
+
+        console.log(resposta)
+        }catch(error){
+            expect(error).toBeInstanceOf(AppError)
+
+        }
+
+
+    })
+
 
 })

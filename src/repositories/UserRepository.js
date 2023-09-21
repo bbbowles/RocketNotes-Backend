@@ -1,4 +1,3 @@
-const sqliteConnection = require("../database/sqlite")
 const knex = require('../database/knex')
 
 class UserRepository {
@@ -18,7 +17,7 @@ class UserRepository {
 
         return { id: userId }
     }
-    async findById(id) {
+    async findById({id}) {
         console.log(id)
 
         const dbUser = await knex("users").select("*").where("id", id).first()

@@ -1,5 +1,5 @@
-const AddrRepositoryInMemory = require ("../repositories/AddressRepositoryInMemory")
-const AddrShowService = require("./AddrShowService")
+const AddressRepositoryInMemory = require ("../repositories/AddressRepositoryInMemory")
+const AddressShowService = require("./AddrShowService")
 
 
 describe("tests AddrShowService",()=>{
@@ -7,11 +7,11 @@ describe("tests AddrShowService",()=>{
 
         const id = 1
 
-        const addrRepository = new AddrRepositoryInMemory()
+        const addressRepository = new AddressRepositoryInMemory()
 
-        const addrShowService = new AddrShowService(addrRepository)
+        const addressShowService = new AddressShowService(addressRepository)
 
-        const resposta = await addrShowService.execute(id)
+        const resposta = await addressShowService.execute(id)
 
         expect(resposta).toHaveProperty("id")
     })
