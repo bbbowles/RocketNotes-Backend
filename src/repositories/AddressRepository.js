@@ -7,7 +7,9 @@ class AddressRepository {
         return
     }
     async index() {
-        const addr = await knex("enderecos").select("*")
+        const addr = await knex("enderecos").select("enderecos.*", "users.name")
+        .innerJoin("users", "users.id", "enderecos.user_id")
+        .orderBy("id","desc")
 
         return addr
     }
@@ -22,12 +24,12 @@ class AddressRepository {
         return
     }
     async update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id, id }) {
-        await knex("enderecos").where("id",id).update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id })
+        await knex("enderecos").where("id", id).update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id })
 
         return
 
     }
-    async showUser({id}) {
+    async showUser({ id }) {
         console.log(id)
 
         const dbUser = await knex("users").select("*").where("id", id).first()

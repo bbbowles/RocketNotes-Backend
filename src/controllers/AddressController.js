@@ -75,6 +75,8 @@ class AddressController{
 
         dados.id = id
 
+        console.log(dados)
+
         const addressRepository = new AddressRepository()
 
         const userRepository = new UserRepository()
@@ -82,6 +84,9 @@ class AddressController{
         const addressUpdateService = new AddressUpdateService(addressRepository,userRepository)
 
         const resposta = await addressUpdateService.execute(dados)
+
+        console.log("console.log do update", resposta)
+        console.log(response)
 
         return response.json(resposta)
 

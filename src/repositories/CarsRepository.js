@@ -3,7 +3,6 @@ const knex = require('../database/knex')
 class CarsRepository {
 
     async index() {
-        // const dbCars = await knex("cars").select("*")
 
         const dbCars = await knex("cars")
             .select(["cars.id", "cars.names", "cars.brand", "cars.year", "users.name"])
