@@ -23,7 +23,8 @@
     "knex": "^2.2.0",
     "multer": "^1.4.5-lts.1",
     "sqlite": "^4.1.1",
-    "sqlite3": "^5.0.9"
+    "sqlite3": "^5.0.9",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "jest": "^29.6.4",

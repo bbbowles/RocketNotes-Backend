@@ -4,13 +4,13 @@ class UserRepositoryInMemory{
     async create({email, name, password}){
         const user={
             id:Math.floor(Math.random() * 1000) + 1,
-            email, 
+            email,
             name,
             password
         }
 
         console.log("passou pelo user repo")
-    this.users.push(user)
+        this.users.push(user)
 
         return user
     }
@@ -35,7 +35,7 @@ class UserRepositoryInMemory{
     }
     async findById(id){
 
-        const resultado=[
+        const resultado=
             {
                 "id": 1,
                 "name": "admin",
@@ -45,7 +45,7 @@ class UserRepositoryInMemory{
                 "created_at": "2023-09-11 19:18:19",
                 "updated_at": "2023-09-11 19:18:19"
             }
-        ]
+
 
         return resultado
     }

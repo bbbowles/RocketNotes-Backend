@@ -7,36 +7,36 @@ class AddressUpdateService {
     }
     async execute(dados) {
 
-        const { cep, nome, cidade, bairro, estado, numero, complemento, user_id, id } = dados
+        let { cep, nome, cidade, bairro, estado, numero, complemento, user_id, id } = dados
 
-        if (cep && nome && cidade && bairro && estado && numero && user_id && id) {
 
-                console.log("rodando update")
+        nome = nome.charAt(0).toUpperCase() + nome.slice(1)
+        cidade = cidade.charAt(0).toUpperCase() + cidade.slice(1)
+        bairro = bairro.charAt(0).toUpperCase() + bairro.slice(1)
+        estado = estado.charAt(0).toUpperCase() + estado.slice(1)
 
-                const user = await this.userRepository.findById({ id: user_id })
 
-                if (cep && String(cep).length == 8 && !isNaN(cep) && user) {
-                    console.log("validacao correta")
-                    try {
-                        await this.addressRepository.update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id, id })
+        console.log("rodando update")
 
-                        console.log("endereco adicionado")
+        const user = await this.userRepository.findById({ id: user_id })
 
-                        return "Endereço atualizado com sucesso!"
+        if (cep && String(cep).length == 8 && user) {
+            console.log("validacao correta")
+            try {
+                await this.addressRepository.update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id, id })
 
-                    } catch {
-                        throw new AppError("Um erro interno ocorreu durante o update de dados")
-                    }
-                }else{
-                    console.log("validacao erro")
-                    throw new AppError("Um dos dados recebidos esta errado! Dica: cep e/ou usuario")
-                }
-            }else {
+                console.log("endereco adicionado")
 
-                console.log("endereco nao adicionado")
+                return "Endereço atualizado com sucesso!"
 
-                throw new AppError("Nem todos os dados necessarios foram recebidos!")
+            } catch {
+                throw new AppError("Um erro interno ocorreu durante o update de dados")
+            }
+        } else {
+            console.log("validacao erro")
+            throw new AppError("Um dos dados recebidos esta errado! Dica: cep e/ou usuario")
         }
+
 
 
 

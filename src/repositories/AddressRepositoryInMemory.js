@@ -54,7 +54,6 @@ class AddressRepositoryInMemory {
         return
 
     }
-
 }
 
 module.exports = AddressRepositoryInMemory

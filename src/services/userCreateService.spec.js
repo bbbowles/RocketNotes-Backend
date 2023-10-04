@@ -4,17 +4,17 @@ const AppError = require("../utils/AppError")
 
 describe("UserCreateService", () => {
     it("a user should be created", async () => {
-        const user = [{
+        const user = {
             name: "user test",
             email: "user@test.com",
             password: "123"
-        }]
+        }
 
         const userRepositoryInMemory = new UserRepositoryInMemory()
         const userCreateService = new UserCreateService(userRepositoryInMemory)
         const userCreated = await userCreateService.execute(user)
 
-        console.log(userCreated)
+        console.log("user created",userCreated)
 
         expect(userCreated).toHaveProperty("id")
 

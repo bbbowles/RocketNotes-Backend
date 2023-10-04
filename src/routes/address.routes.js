@@ -9,6 +9,7 @@ addressRoutes.use(ensureAuthenticated)
 
 
 addressRoutes.get("/", addressController.index)
+addressRoutes.post("/filtered/",addressController.showFilter)
 addressRoutes.get("/:id", addressController.show)
 addressRoutes.post("/",addressController.create)
 addressRoutes.put("/:id?",addressController.update)

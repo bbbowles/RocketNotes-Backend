@@ -29,14 +29,22 @@ class AddressRepository {
         return
 
     }
-    async showUser({ id }) {
-        console.log(id)
+    async showFilter({cep, nome, cidade, bairro, estado, numero}){
+        console.log({cep, nome, cidade, bairro, estado, numero})
+        const resposta = await knex("enderecos").select("*")
+        .whereLike("cep", `%${cep}%`)
+        .whereLike("nome", `%${nome}%`)
+        .whereLike("cidade", `%${cidade}%`)
+        .whereLike("estado", `%${estado}%`)
+        .whereLike("bairro", `%${bairro}%`)
+        .whereLike("numero", `%${numero}%`)
+        // .first() nao pode usar first pq a pagina de address precisa receber um array
 
-        const dbUser = await knex("users").select("*").where("id", id).first()
+        //chegou todos undefined
 
-        console.log(dbUser)
+        console.log("respsota",resposta)
 
-        return dbUser
+        return resposta
     }
 
 }

@@ -1,34 +1,66 @@
-const AddressRepository = require ("../repositories/AddressRepository")
-const UserRepository = require ("../repositories/UserRepository")
+const AddressRepository = require("../repositories/AddressRepository")
+const UserRepository = require("../repositories/UserRepository")
 
 
-const AddressCreateService = require ("../services/AddressCreateService")
-const AddressIndexService = require ("../services/AddressIndexService")
+const AddressCreateService = require("../services/AddressCreateService")
+const AddressIndexService = require("../services/AddressIndexService")
 const AddressShowService = require("../services/AddressShowService")
 const AddressDeleteService = require("../services/AddressDeleteService")
 const AddressUpdateService = require("../services/AddressUpdateService")
+const AddressShowFilterService = require("../services/AddressShowFilterService")
+const AppError = require("../utils/AppError")
+
+const z = require('zod')
 
 
-class AddressController{
-    async create(request,response){
+
+class AddressController {
+    async create(request, response) {
         const dados = request.body
 
-        console.log(dados)
+        const addressSchema = z.object({
+            cep: z.string().length(8, { message: "Um cep deve ter exatamente 8 números" }),
 
-        const addressRepository = new AddressRepository()
+            nome: z.string().min(3, { message: "Digite um nome de pelomenos 3 caracteres" }).max(30,{message:"Texto muito grande!"}),
 
-        const userRepository = new UserRepository()
+            cidade: z.string().min(3, { message: "O nome da cidade deve ter pelomenos 3 caracteres" }).max(30,{message:"Texto muito grande!"}),
 
-        const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+            bairro: z.string().min(3, { message: "O nome do bairro deve ter pelomenos 3 caracteres" }).max(30,{message:"Texto muito grande!"}),
 
-        const resposta = await addressCreateService.execute(dados)
+            estado: z.string().length(2, { message: "O estado deve ser escrito em sigla, apenas 2 caracteres permitidos" }),
 
-        return response.json(resposta)
+            numero: z.number().int().gte(1, { message: "O número da casa deve ser maior que zero" }).lte(9999,{message:"Número muito grande!"}),
 
+            user_id: z.number().int().gte(1, { message: "O user id deve ser maior que zero" })
+
+        })
+            const parseResposta = addressSchema.safeParse(dados)
+
+            if (!parseResposta.success) {
+                const formatted = parseResposta.error.format()
+
+                throw new AppError(formatted,400)
+
+            } else {
+
+
+                console.log(dados)
+
+                const addressRepository = new AddressRepository()
+
+                const userRepository = new UserRepository()
+
+                const addressCreateService = new AddressCreateService(addressRepository, userRepository)
+
+                const resposta = await addressCreateService.execute(dados)
+
+                return response.json(resposta)
+
+            }
 
     }
 
-    async index(request,response){
+    async index(request, response) {
 
         const addressRepository = new AddressRepository()
 
@@ -40,9 +72,9 @@ class AddressController{
 
     }
 
-    async show(request,response){
+    async show(request, response) {
 
-        const {id} = request.params
+        const { id } = request.params
 
         const addressRepository = new AddressRepository()
 
@@ -53,9 +85,9 @@ class AddressController{
         return response.json(resposta)
     }
 
-    async delete(request,response){
+    async delete(request, response) {
 
-        const {id} = request.params
+        const { id } = request.params
 
         const addressRepository = new AddressRepository()
 
@@ -67,29 +99,73 @@ class AddressController{
 
     }
 
-    async update(request,response){
+    async update(request, response) {
 
         const dados = request.body
 
-        const {id} = request.params
+        const { id } = request.params
 
-        dados.id = id
+        dados.id = Number(id)
 
-        console.log(dados)
+        console.log("dados", dados)
+
+        const addressSchema = z.object({
+            cep: z.string().length(8, { message: "Um cep deve ter exatamente 8 números" }),
+
+            nome: z.string().min(3, { message: "Digite um nome de pelomenos 3 caracteres" }).max(30,{message:"Texto muito grande!"}),
+
+            cidade: z.string().min(3, { message: "O nome da cidade deve ter pelomenos 3 caracteres" }).max(30,{message:"Texto muito grande!"}),
+
+            bairro: z.string().min(3, { message: "O nome do bairro deve ter pelomenos 3 caracteres" }).max(30,{message:"Texto muito grande!"}),
+
+            estado: z.string().length(2, { message: "O estado deve ser escrito em sigla, apenas 2 caracteres permitidos" }),
+
+            numero: z.number().int().gte(1, { message: "O número da casa deve ser maior que zero" }).lte(9999,{message:"Número muito grande!"}),
+
+            user_id: z.number().int().gte(1, { message: "O user id deve ser maior que zero" }),
+
+            id: z.number().int().gte(1,{message: "id do endereco precisa ser maior ou igual a 1"})
+
+        })
+
+            const parseResposta = addressSchema.safeParse(dados)
+
+            if (!parseResposta.success) {
+                const formatted = parseResposta.error.format()
+
+                throw new AppError(formatted,400)
+            } else {
+
+
+                const addressRepository = new AddressRepository()
+
+                const userRepository = new UserRepository()
+
+                const addressUpdateService = new AddressUpdateService(addressRepository, userRepository)
+
+                const resposta = await addressUpdateService.execute(dados)
+
+                return response.json(resposta)
+            }
+
+
+    }
+    async showFilter(request,response) {
+
+        const {cep, nome, cidade, bairro, estado, numero} = request.body
+        console.log(request.body)
+
+        console.log("controller",{cep, nome, cidade, bairro, estado, numero})
 
         const addressRepository = new AddressRepository()
 
         const userRepository = new UserRepository()
 
-        const addressUpdateService = new AddressUpdateService(addressRepository,userRepository)
+        const addressShowFilterService = new AddressShowFilterService(addressRepository,userRepository)
 
-        const resposta = await addressUpdateService.execute(dados)
+        const data = await addressShowFilterService.execute({cep, nome, cidade, bairro, estado, numero})
 
-        console.log("console.log do update", resposta)
-        console.log(response)
-
-        return response.json(resposta)
-
+        return response.json(data)
     }
 }
 

@@ -11,7 +11,7 @@ class NotesRepository{
     async linksInsert({links,note_id}){
 
         console.log("inseriu link")
- 
+
         return
     }
     async tagsInsert({name,note_id,user_id}){
@@ -21,9 +21,9 @@ class NotesRepository{
 
         return
     }
-    async searchNotesComplete({notes_id}){
+    async searchNotesComplete(notes_id){
 
-        console.log(notes_id)
+        console.log("note_id",notes_id)
 
         if(notes_id){
             const note = [{
@@ -51,7 +51,7 @@ class NotesRepository{
             return
         }
 
-         
+
     }
     async delete(id){
         console.log("nota deletada")
@@ -59,7 +59,7 @@ class NotesRepository{
         const resultado = "ok"
 
         return resultado
-        
+
     }
     async indexTags({user_id, title, filterTags}){
         const tags = [{
