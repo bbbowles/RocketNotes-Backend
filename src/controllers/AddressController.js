@@ -8,6 +8,7 @@ const AddressShowService = require("../services/AddressShowService")
 const AddressDeleteService = require("../services/AddressDeleteService")
 const AddressUpdateService = require("../services/AddressUpdateService")
 const AddressShowFilterService = require("../services/AddressShowFilterService")
+const AddressIndexPaginationService = require("../services/AddressIndexPaginationService")
 const AppError = require("../utils/AppError")
 
 const z = require('zod')
@@ -62,11 +63,15 @@ class AddressController {
 
     async index(request, response) {
 
+        const {pages} = request.params
+        console.log(pages)
+        //pagination
+
         const addressRepository = new AddressRepository()
 
         const addressIndexService = new AddressIndexService(addressRepository)
 
-        const resposta = await addressIndexService.execute()
+        const resposta = await addressIndexService.execute(pages)
 
         return response.json(resposta)
 
@@ -152,8 +157,9 @@ class AddressController {
     }
     async showFilter(request,response) {
 
-        const {cep, nome, cidade, bairro, estado, numero} = request.body
-        console.log(request.body)
+        console.log(request)
+
+        const {cep, nome, cidade, bairro, estado, numero} = request.query
 
         console.log("controller",{cep, nome, cidade, bairro, estado, numero})
 
@@ -167,6 +173,25 @@ class AddressController {
 
         return response.json(data)
     }
+
+    async indexPagination(request,response){
+
+        let {pages} = request.params
+
+        pages = pages*5
+
+        const addressRepository = new AddressRepository()
+
+        const userRepository = new UserRepository()
+
+        const addressIndexPaginationService = new AddressIndexPaginationService(addressRepository,userRepository)
+
+        const addr = await addressIndexPaginationService.execute(pages)
+
+        return response.json(addr)
+
+    }
+
 }
 
 module.exports = AddressController

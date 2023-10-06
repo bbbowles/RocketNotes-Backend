@@ -47,6 +47,20 @@ class AddressRepository {
         return resposta
     }
 
+    async indexPagination(pages){
+        const addr = await knex("enderecos")
+        .select("*")
+        .limit(5).offset(pages)
+
+        const tmp = await knex("enderecos").count("*").first()
+
+        const rowCount = tmp[`count(*)`]
+
+        console.log(rowCount)
+
+        return {addr,rowCount}
+    }
+
 }
 
 module.exports = AddressRepository
