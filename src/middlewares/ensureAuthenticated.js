@@ -5,9 +5,10 @@ const authConfig = require("../configs/auth")
 
 function ensureAuthenticated(request, response, next){
     const authHeader = request.headers.authorization
-    const tmp = request.headers
+    const tmp = request
 
-    //console.log(`user id ${user_id}`)
+
+    // console.log(`user id ${user_id}`)
     console.log("auth"+authHeader) //recebe bearer + token, faz o split para apagar o bearer
 
     if(!authHeader){
@@ -29,7 +30,8 @@ function ensureAuthenticated(request, response, next){
         return next()
 
     }catch{
-    
+        console.log("error authentication")
+
         throw new AppError("JWT token invalido",401)
 
     }

@@ -20,7 +20,7 @@ class UserCreateService {
 
             console.log("checkuserexist", checkUserExists)
 
-            if (checkUserExists[0]) {
+            if (checkUserExists) {
                 throw new AppError('Email em uso')
             }
 

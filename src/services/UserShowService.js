@@ -7,19 +7,20 @@ class UserShowService {
     async execute(id) {
         console.log("user show service",id)
 
-        if (!id) {
-            throw new AppError("id nao informado")
-
-        } else {
+        if (id) {
             const resposta = await this.userRepository.findById(id)
 
             if (resposta.length == 0) {
                 throw new AppError("Usuario nao existe")
+
             } else {
                 return resposta
 
             }
+        }else {
+            throw new AppError("id nao informado")
         }
+
 
 
     }

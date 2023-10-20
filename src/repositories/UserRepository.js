@@ -6,7 +6,7 @@ class UserRepository {
 
         const user = await knex("users").select("*").where("email", email).first()
 
-
+        console.log("dbuser",user)
 
         return user
     }
@@ -17,17 +17,20 @@ class UserRepository {
 
         return { id: userId }
     }
-    async findById({id}) {
-        console.log(id)
+    async findById(id) {
 
         const dbUser = await knex("users").select("*").where("id", id).first()
+
+
+
+        console.log(dbUser)
 
         return dbUser
     }
     async update(user) {
         console.log("user", user)
 
-        const { name, email, password, id } = user[0]
+        const { name, email, password, id } = user
 
         const resultado = await knex("users").update({ name, email, password }).where("id", id)
 

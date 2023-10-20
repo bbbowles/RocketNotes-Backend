@@ -15,7 +15,7 @@ class UsersController {
 
     const userRepository = new UserRepository()
 
-    const userCreateService = new UserCreateService(userRepository) 
+    const userCreateService = new UserCreateService(userRepository)
 
     await userCreateService.execute({name, email, password})
 
@@ -23,7 +23,7 @@ class UsersController {
   }
 
 
-  
+
   async update(request, response) {
     const { name, email, password, old_password } = request.body
 
@@ -36,7 +36,6 @@ class UsersController {
       password,
       old_password
     }
-
 
     const userUpdateService = new UserUpdateService(userRepository)
 

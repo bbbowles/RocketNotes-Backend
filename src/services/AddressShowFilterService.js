@@ -8,7 +8,9 @@ class AddressShowFilter{
 
         console.log(data)
 
-        const {cep, nome, cidade, bairro, estado, numero} = data
+        let {cep, nome, cidade, bairro, estado, numero, pages} = data
+
+        pages = Number(pages)*5
 
         const resposta = await this.addressRepository.showFilter({
         cep: cep ? cep : "",
@@ -16,7 +18,8 @@ class AddressShowFilter{
         cidade: cidade ? cidade : "",
         bairro: bairro ? bairro : "",
         estado: estado ? estado : "",
-        numero: numero ? numero : ""
+        numero: numero ? numero : "",
+        pages
     })
 
         return resposta
