@@ -18,7 +18,9 @@ class AddressUpdateService {
 
         console.log("rodando update")
 
+
         const user = await this.userRepository.findById({ id: user_id })
+
 
         if (cep && String(cep).length == 8 && user) {
             console.log("validacao correta")

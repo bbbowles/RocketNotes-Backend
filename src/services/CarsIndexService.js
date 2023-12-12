@@ -4,8 +4,13 @@ class CarsIndexService{
         this.carsRepository = carsRepository
     }
 
-    async execute(){
-        const dbCars = await this.carsRepository.index()
+    async execute({names, brand, year, nome}){
+        names = names ? names : ""
+        brand = brand ? brand : ""
+        year = year ? year : ""
+        nome =  nome ? nome : ""
+        console.log(names)
+        const dbCars = await this.carsRepository.index(names, brand, year, nome)
         return dbCars
     }
 }

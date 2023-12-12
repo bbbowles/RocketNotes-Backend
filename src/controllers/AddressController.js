@@ -35,10 +35,14 @@ class AddressController {
             user_id: z.number().int().gte(1, { message: "O user id deve ser maior que zero" })
 
         })
+        console.log(dados)
+
         const parseResposta = addressSchema.safeParse(dados)
 
         if (!parseResposta.success) {
             const formatted = parseResposta.error.format()
+
+            console.log(formatted)
 
             throw new AppError(formatted, 400)
 
@@ -81,6 +85,7 @@ class AddressController {
 
         const { id } = request.params
 
+
         const addressRepository = new AddressRepository()
 
         const addressShowService = new AddressShowService(addressRepository)
@@ -111,6 +116,9 @@ class AddressController {
         const { id } = request.params
 
         dados.id = Number(id)
+
+        console.log(dados, id)
+
 
 
         const addressSchema = z.object({
@@ -158,7 +166,9 @@ class AddressController {
 
         const { cep, nome, cidade, bairro, estado, numero, pages } = request.query
 
-        console.log("controller", { cep, nome, cidade, bairro, estado, numero, pages })
+        console.log("query",request.query)
+
+        // console.log("controller", { cep, nome, cidade, bairro, estado, numero, pages })
 
         const addressRepository = new AddressRepository()
 
@@ -175,7 +185,9 @@ class AddressController {
 
         let { pages } = request.params
 
-        pages = pages * 5
+        console.log(pages)
+
+        pages = pages * 10
 
         const addressRepository = new AddressRepository()
 

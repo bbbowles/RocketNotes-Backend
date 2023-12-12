@@ -2,10 +2,16 @@ const knex = require('../database/knex')
 
 class CarsRepository {
 
-    async index() {
+    async index( names, brand, year, nome) {
+
+        console.log(names, brand, year, nome)
 
         const dbCars = await knex("cars")
             .select(["cars.id", "cars.names", "cars.brand", "cars.year", "users.name"])
+            .whereLike("cars.names",`%${names}%`)
+            .whereLike("cars.brand",`%${brand}%`)
+            .whereLike("cars.year",`%${year}%`)
+            .whereLike("users.name",`%${nome}%`)
             .innerJoin("users", "users.id", "cars.user_id")
 
         console.log(dbCars)
@@ -27,8 +33,9 @@ class CarsRepository {
 
         return dbCar
     }
-    async update({ name, brand, year, user_id, id }) {
-        await knex("cars").where("id", id).update({ names: name, brand, year, user_id })
+    async update({ names, brand, year, user_id, id }) {
+        console.log({ names, brand, year, user_id, id })
+        await knex("cars").where("id", id).update({ names, brand, year, user_id })
 
         return
     }

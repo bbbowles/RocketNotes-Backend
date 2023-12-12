@@ -5,11 +5,15 @@ const CarsShowService = require("../services/CarsShowService")
 class CarsController{
     async index(request,response){
 
+        const {names, brand, year, nome} = request.query
+
+        console.log({names, brand, year, nome})
+
         const carsRepository = new CarsRepository()
 
         const carsIndexService = new CarsIndexService(carsRepository)
 
-        const dbCars = await carsIndexService.execute()
+        const dbCars = await carsIndexService.execute({names, brand, year, nome})
 
         return response.json(dbCars)
     }

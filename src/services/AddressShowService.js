@@ -6,6 +6,8 @@ class AddressShowService {
     }
 
     async execute(id) {
+        console.log("service",id)
+
         let addr
         try {
             addr = await this.addressRepository.show(id)

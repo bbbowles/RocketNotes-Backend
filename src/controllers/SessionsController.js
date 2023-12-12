@@ -7,12 +7,15 @@ const {sign} = require("jsonwebtoken")
 class SessionsController{
     async create(request, response){
         const{email,password} = request.body
+        console.log("caiu no sessions")
+        console.log({email, password})
 
         const user = await knex("users").where({email}).first()
 
         if(!user){
             throw new AppError("email e/ou senha incorreta", 401)
         }
+
 
         const passwordMatched = await compare(password,user.password)
 

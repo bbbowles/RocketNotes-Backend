@@ -4,10 +4,10 @@ class CarsUpdateService {
     constructor(carsRepository) {
         this.carsRepository = carsRepository
     }
-    async execute({ name, brand, year, user_id, id }) {
+    async execute({ names, brand, year, user_id, id }) {
 
-        if (name && brand && year && user_id && id) {
-            this.carsRepository.update({ name, brand, year, user_id, id })
+        if (names && brand && year && user_id && id) {
+            this.carsRepository.update({ names, brand, year, user_id, id })
 
             return
         }else{

@@ -15,10 +15,15 @@ class AddressRepository {
 
         const rowCount = tmp[`count(*)`]
 
-        return {addr, rowCount}
+        return { addr, rowCount }
     }
     async show(id) {
+        console.log("repo id", id)
+
+
         const addr = await knex("enderecos").select("*").where("id", id).first()
+
+        console.log("addr", addr)
 
         return addr
     }
@@ -28,21 +33,37 @@ class AddressRepository {
         return
     }
     async update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id, id }) {
-        console.log("informacoes update",cep, nome, cidade, bairro, estado, numero, complemento, user_id, id)
+        console.log("informacoes update", cep, nome, cidade, bairro, estado, numero, complemento, user_id, id)
         await knex("enderecos").where("id", id).update({ cep, nome, cidade, bairro, estado, numero, complemento, user_id })
 
         return
 
     }
     async showFilter({ cep, nome, cidade, bairro, estado, numero, pages }) {
-        const rows = await knex("enderecos").select("*")
-            .whereLike("cep", `%${cep}%`)
-            .whereLike("nome", `%${nome}%`)
-            .whereLike("cidade", `%${cidade}%`)
-            .whereLike("estado", `%${estado}%`)
-            .whereLike("bairro", `%${bairro}%`)
-            .whereLike("numero", `%${numero}%`)
-            .limit(5).offset(pages)
+        console.log({ cep, nome, cidade, bairro, estado, numero, pages })
+
+        const rows = await knex("enderecos")
+        .join("users", "users.id", "=", "enderecos.user_id")
+        .select("users.name", "enderecos.*")
+        .whereLike("cep", `%${cep}%`)
+        .whereLike("nome", `%${nome}%`)
+        .whereLike("cidade", `%${cidade}%`)
+        .whereLike("estado", `%${estado}%`)
+        .whereLike("bairro", `%${bairro}%`)
+        .whereLike("numero", `%${numero}%`)
+        .limit(10).offset(pages)
+
+
+        // const rows = await knex("enderecos")
+        //     .select(["enderecos.*", "users.name"])
+        //     .whereLike("cep", `%${cep}%`)
+        //     .whereLike("nome", `%${nome}%`)
+        //     .whereLike("cidade", `%${cidade}%`)
+        //     .whereLike("estado", `%${estado}%`)
+        //     .whereLike("bairro", `%${bairro}%`)
+        //     .whereLike("numero", `%${numero}%`)
+        //     .limit(10).offset(pages)
+        //     .innerJoin('users', 'users.id', 'enderecos.user_id')
         // .first() nao pode usar first pq a pagina de address precisa receber um array
 
         //chegou todos undefined
@@ -69,13 +90,16 @@ class AddressRepository {
             .first()
 
 
+        console.log({ rows, count })
         return { rows, count }
     }
 
     async indexPagination(pages) {
+        console.log("pages", pages)
         const addr = await knex("enderecos")
-            .select("*")
-            .limit(5).offset(pages)
+            .select("enderecos.*")
+            .limit(10).offset(pages)
+            .leftJoin('users', 'users.id', 'enderecos.user_id')
 
         const tmp = await knex("enderecos").count("*").first()
 

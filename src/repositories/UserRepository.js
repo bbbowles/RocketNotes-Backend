@@ -17,13 +17,13 @@ class UserRepository {
 
         return { id: userId }
     }
-    async findById(id) {
-
+    async findById({id}) {
+        console.log(id,"id do finbyid")
         const dbUser = await knex("users").select("*").where("id", id).first()
 
 
 
-        console.log(dbUser)
+        console.log("finbyid",dbUser)
 
         return dbUser
     }
@@ -41,8 +41,6 @@ class UserRepository {
     async index() {
 
         const users = await knex("users").select("name", "id")
-
-        console.log(users)
 
         return users
     }
