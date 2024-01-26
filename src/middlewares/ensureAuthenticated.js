@@ -5,6 +5,7 @@ const authConfig = require("../configs/auth")
 
 function ensureAuthenticated(request, response, next){
     const authHeader = request.headers.authorization
+    console.log(request)
     const tmp = request
 
 

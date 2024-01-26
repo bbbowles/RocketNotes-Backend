@@ -1,6 +1,7 @@
 const CarsIndexService = require("../services/CarsIndexService")
 const CarsRepository = require("../repositories/CarsRepository")
 const CarsShowService = require("../services/CarsShowService")
+const CarsImagesService = require("../services/CarsImagesService")
 
 class CarsController{
     async index(request,response){
@@ -27,7 +28,22 @@ class CarsController{
 
         const dbCar = await carsShowService.execute(id)
 
+        if(dbCar.image){
+        response.download(`/home/neo/Minha/codigos/teste/api/uploads/${dbCar.image}`)
+        }
+
         return response.json(dbCar)
+    }
+    async images(request,response){
+        const {id}=request.params
+
+        const carsRepository = new CarsRepository()
+
+        const carsImagesService = new CarsImagesService(carsRepository)
+
+        const images = await carsImagesService.execute(id)
+
+        return response.json(images)
     }
 }
 

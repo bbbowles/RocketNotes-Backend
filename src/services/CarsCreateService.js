@@ -4,7 +4,7 @@ class CarsCreateService{
     constructor(carsRepository){
         this.carsRepository = carsRepository
     }
-    async execute({names,brand,year,user_id}){
+    async execute({names,brand,year,user_id,image}){
         console.log("service",{names,brand,year,user_id})
 
 

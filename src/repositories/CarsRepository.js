@@ -7,7 +7,7 @@ class CarsRepository {
         console.log(names, brand, year, nome)
 
         const dbCars = await knex("cars")
-            .select(["cars.id", "cars.names", "cars.brand", "cars.year", "users.name"])
+            .select(["cars.*", "users.name"])
             .whereLike("cars.names",`%${names}%`)
             .whereLike("cars.brand",`%${brand}%`)
             .whereLike("cars.year",`%${year}%`)
@@ -19,6 +19,7 @@ class CarsRepository {
         return dbCars
     }
     async create({ names, brand, year, user_id }) {
+        console.log({ names, brand, year, user_id })
         await knex("cars").insert({ names, brand, year, user_id })
 
         return
@@ -34,10 +35,19 @@ class CarsRepository {
         return dbCar
     }
     async update({ names, brand, year, user_id, id }) {
-        console.log({ names, brand, year, user_id, id })
         await knex("cars").where("id", id).update({ names, brand, year, user_id })
 
         return
+    }
+
+    async updateImage(image){
+        console.log("repo", image)
+        await knex("cars").where("image",image).update({image:null})
+    }
+    async images(id){
+        const images = await knex("carsimages").select("image").where("cars_id",id)
+
+        return images
     }
 }
 

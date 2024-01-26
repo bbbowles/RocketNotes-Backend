@@ -7,5 +7,6 @@ const ensureAuthenticated = require("../middlewares/ensureAuthenticated")
 
 carsRoutes.get('/',ensureAuthenticated, carsController.index)
 carsRoutes.get('/show/:id',ensureAuthenticated, carsController.show)
+carsRoutes.get('/images/:id', ensureAuthenticated, carsController.images)
 
 module.exports = carsRoutes

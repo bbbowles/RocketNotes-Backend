@@ -21,7 +21,7 @@ class DiskStorage{
             return
         }
 
-        await fs.promises.unlink(filePath) //deleta o arquivo se o parametro dele for o path de um arquivo 
+        await fs.promises.unlink(filePath) //deleta o arquivo se o parametro dele for o path de um arquivo
     }
 }
 
